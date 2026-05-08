@@ -1,46 +1,45 @@
-# BioPINN-Muscle-Inference 
+<h1 align="center">🧬 BioPINN: MUSCLE EFFORT INFERENCE</h1>
 
-**Estimation de l'effort musculaire par Réseaux de Neurones Informés par la Physique (PINNs)**
+<h2 align="center">🏆 Estimation de l'effort musculaire par PINNs 🏆</h2>
 
 ---
 
-## 📌 Présentation du Projet
-Ce projet implémente une architecture **PINN** (Physics-Informed Neural Network) développée sous **PyTorch**. L'objectif est de reconstruire la dynamique d'un mouvement humain et d'inférer l'effort moteur (torque) à partir de données cinématiques bruitées. 
+<h1>📌 1. PRÉSENTATION DU PROJET</h1>
+<h3>Ce projet utilise l'Intelligence Artificielle (PyTorch) pour reconstruire la dynamique humaine. Le modèle agit comme un <b>Jumeau Numérique</b> pour filtrer le bruit de mesure.</h3>
 
-Le modèle agit comme un **Jumeau Numérique** capable de filtrer le bruit de mesure tout en respectant les lois de la mécanique classique.
+---
 
-## ⚖️ Fondements Mathématiques
-Le système est modélisé par une équation différentielle ordinaire (EDO) du second ordre représentant la dynamique d'un membre :
+<h1>⚖️ 2. FONDEMENTS MATHÉMATIQUES</h1>
 
-$$I \ddot{\theta}(t) + b \dot{\theta}(t) + k \theta(t) = \tau(t)$$
+<h1 align="center"><b>I θ'' + b θ' + k θ = τ</b></h1>
 
-### Cadre Fonctionnel
-* **Espace de Sobolev :** Le problème est posé dans l'espace $H^2(0, T)$, garantissant que la solution $\theta$ possède des dérivées secondes de carré intégrable.
-* **Existence et Unicité :** Garanties par le théorème de **Cauchy-Lipschitz** (cadre classique) et validées par la formulation faible (**Lax-Milgram**) dans le cadre des solutions de Sobolev.
-* **Régularisation :** La fonction de perte (Loss) intègre le résidu de l'EDO, agissant comme une régularisation physique qui stabilise l'inférence face au bruit.
+<ul>
+  <li><h2>✅ CADRE FONCTIONNEL : ESPACE DE SOBOLEV H²</h2></li>
+  <li><h2>✅ EXISTENCE & UNICITÉ : LAX-MILGRAM</h2></li>
+  <li><h2>✅ RÉGULARISATION : PHYSIQUE DANS LA LOSS</h2></li>
+</ul>
 
-## 🛠️ Spécifications Techniques
-* **Langage :** Python 3.x
-* **Librairies :** PyTorch, NumPy, Matplotlib, Pandas, Scikit-learn.
-* **Optimisation :** Double approche avec **Adam** pour l'exploration globale et **L-BFGS** pour la précision locale des dérivées secondes.
-* **Données :** Données synthétiques générées via **MATLAB** avec injection de bruit gaussien.
+---
 
-## 📊 Résultats de Validation
-La performance du modèle est évaluée par comparaison avec la "Vérité Terrain" (Ground Truth) de MATLAB :
+<h1>📊 3. RÉSULTATS (PRÉCISION R²)</h1>
 
-| Métrique | Position ($\theta$) | Effort ($\tau$) |
-| :--- | :--- | :--- |
-| **Erreur Quadratique (MSE)** | ~0.0002 | ~0.0049 |
-| **Précision ($R^2$)** | **0.9959** | **0.9184** |
+<h1 align="center">🎯 POSITION (θ) : <b>0.9959</b></h1>
+<h1 align="center">🎯 EFFORT (τ) : <b>0.9184</b></h1>
 
-> ### 📈 Analyse des Résidus
-Pour valider la robustesse statistique du modèle, une analyse des résidus a été effectuée :
-* **Moyenne des résidus ($\theta$) :** 0.0090 (Proche de zéro)
-* **Moyenne des résidus ($\tau$) :** 0.0118 (Proche de zéro)
+<hr>
 
-La distribution aléatoire et centrée des résidus confirme que le PINN est un **estimateur non biaisé**. Cela prouve que l'erreur restante est uniquement due au bruit gaussien injecté et non à une erreur de modélisation physique.
+<h1>📈 4. ANALYSE DES RÉSIDUS</h1>
+<h2>● Moyenne Résidus θ : <b>0.0090</b></h2>
+<h2>● Moyenne Résidus τ : <b>0.0118</b></h2>
+<h3>🏆 <b>CONCLUSION : ESTIMATEUR NON BIAISÉ</b></h3>
 
-## 🚀 Utilisation
-1. Clonez le dépôt :
-   ```bash
-   git clone [https://github.com/Karim-Chibani/BioPINN-Muscle-Inference.git](https://github.com/Karim-Chibani/BioPINN-Muscle-Inference.git)
+---
+
+<h1>🛠️ 5. SPÉCIFICATIONS TECHNIQUES</h1>
+<ul>
+  <li><h2>PYTORCH (AUTOGRAD)</h2></li>
+  <li><h2>ADAM & L-BFGS OPTIMIZERS</h2></li>
+  <li><h2>MATLAB SYNTHETIC DATA</h2></li>
+</ul>
+
+---
