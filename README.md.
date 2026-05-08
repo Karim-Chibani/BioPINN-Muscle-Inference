@@ -1,0 +1,46 @@
+# BioPINN-Muscle-Inference 
+
+**Estimation de l'effort musculaire par Réseaux de Neurones Informés par la Physique (PINNs)**
+
+---
+
+## 📌 Présentation du Projet
+Ce projet implémente une architecture **PINN** (Physics-Informed Neural Network) développée sous **PyTorch**. L'objectif est de reconstruire la dynamique d'un mouvement humain et d'inférer l'effort moteur (torque) à partir de données cinématiques bruitées. 
+
+Le modèle agit comme un **Jumeau Numérique** capable de filtrer le bruit de mesure tout en respectant les lois de la mécanique classique.
+
+## ⚖️ Fondements Mathématiques
+Le système est modélisé par une équation différentielle ordinaire (EDO) du second ordre représentant la dynamique d'un membre :
+
+$$I \ddot{\theta}(t) + b \dot{\theta}(t) + k \theta(t) = \tau(t)$$
+
+### Cadre Fonctionnel
+* **Espace de Sobolev :** Le problème est posé dans l'espace $H^2(0, T)$, garantissant que la solution $\theta$ possède des dérivées secondes de carré intégrable.
+* **Existence et Unicité :** Garanties par le théorème de **Cauchy-Lipschitz** (cadre classique) et validées par la formulation faible (**Lax-Milgram**) dans le cadre des solutions de Sobolev.
+* **Régularisation :** La fonction de perte (Loss) intègre le résidu de l'EDO, agissant comme une régularisation physique qui stabilise l'inférence face au bruit.
+
+## 🛠️ Spécifications Techniques
+* **Langage :** Python 3.x
+* **Librairies :** PyTorch, NumPy, Matplotlib, Pandas, Scikit-learn.
+* **Optimisation :** Double approche avec **Adam** pour l'exploration globale et **L-BFGS** pour la précision locale des dérivées secondes.
+* **Données :** Données synthétiques générées via **MATLAB** avec injection de bruit gaussien.
+
+## 📊 Résultats de Validation
+La performance du modèle est évaluée par comparaison avec la "Vérité Terrain" (Ground Truth) de MATLAB :
+
+| Métrique | Position ($\theta$) | Effort ($\tau$) |
+| :--- | :--- | :--- |
+| **Erreur Quadratique (MSE)** | ~0.0002 | ~0.0049 |
+| **Précision ($R^2$)** | **0.9959** | **0.9184** |
+
+> ### 📈 Analyse des Résidus
+Pour valider la robustesse statistique du modèle, une analyse des résidus a été effectuée :
+* **Moyenne des résidus ($\theta$) :** 0.0090 (Proche de zéro)
+* **Moyenne des résidus ($\tau$) :** 0.0118 (Proche de zéro)
+
+La distribution aléatoire et centrée des résidus confirme que le PINN est un **estimateur non biaisé**. Cela prouve que l'erreur restante est uniquement due au bruit gaussien injecté et non à une erreur de modélisation physique.
+
+## 🚀 Utilisation
+1. Clonez le dépôt :
+   ```bash
+   git clone [https://github.com/Karim-Chibani/BioPINN-Muscle-Inference.git](https://github.com/Karim-Chibani/BioPINN-Muscle-Inference.git)
